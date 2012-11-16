@@ -1,9 +1,9 @@
 <?php
 	/**
 	 * events for random bits of code that can help you out with development
-	 * 
+	 *
 	 * Copyright (c) 2010 Carl Sutton ( dogmatic69 )
-	 * 
+	 *
 	 * @filesource
 	 * @copyright Copyright (c) 2010 Carl Sutton ( dogmatic69 )
 	 * @link http://www.infinitas-cms.org
@@ -11,15 +11,15 @@
 	 * @subpackage Developer.dev.events
 	 * @license http://www.opensource.org/licenses/mit-license.php The MIT License
 	 * @since 0.1
-	 * 
+	 *
 	 * @author dogmatic69
-	 * 
+	 *
 	 * Licensed under The MIT License
 	 * Redistributions of files must retain the above copyright notice.
 	 */
 
 	class DevEvents extends AppEvents{
-		public function onPluginRollCall() {
+		public function onPluginRollCall(Event $Event) {
 			return array(
 				'name' => 'Developer',
 				'description' => 'Some help developing your Infinitas powered website',
@@ -29,14 +29,14 @@
 			);
 		}
 
-		public function onAdminMenu($event) {
+		public function onAdminMenu(Event $Event) {
 			$menu['main']['Dashboard'] = array('plugin' => 'dev', 'controller' => 'infos', 'action' => 'index');
 			$menu['main']['Xhprof'] = array('plugin' => 'xhprof', 'controller' => 'xhprofs', 'action' => 'index');
 			$menu['main']['Dummy Data'] = array('plugin' => 'xhprof', 'controller' => 'dummy', 'action' => 'dummy_tables');
 			return $menu;
 		}
 
-		public function onRequestDone() {
+		public function onRequestDone(Event $Event) {
 			/**
 			 * dump an array of data from Apc to see what is going on
 			 */
@@ -96,9 +96,9 @@
 			echo '</table></div>';
 		}
 
-		public function onAttachBehaviors($event) {
-			if(Configure::read('debug') && $event->Handler->shouldAutoAttachBehavior()) {
-				$event->Handler->Behaviors->attach('Dev.Dev');
+		public function onAttachBehaviors(Event $Event) {
+			if(Configure::read('debug') && $Event->Handler->shouldAutoAttachBehavior()) {
+				$Event->Handler->Behaviors->attach('Dev.Dev');
 			}
 		}
 	}
