@@ -30,9 +30,11 @@
 			array('action' => 'symlink', 'remove' => 1)
 		)
 	);
-?>
-<div class="dashboard grid_16">
-	<h1><?php echo __('Developer Tools'); ?></h1>
-	<ul class="icons"><li><?php echo implode('</li><li>', current((array)$this->Menu->builDashboardLinks($devIcons, 'dev_icons'))); ?></li></ul>
-	<?php echo $this->Design->arrayToList($actions, 'field-sort', true); ?>
-</div>
+
+$devIcons = $this->Design->arrayToList(current((array)$this->Menu->builDashboardLinks($devIcons, 'dev_icons')), array(
+	'ul' => 'icons'
+));
+
+echo $this->Design->dashboard($devIcons . $this->Design->arrayToList($actions, 'field-sort', true), __d('dev', 'Developer Tools'), array(
+	'class' => 'dashboard span6',
+));
